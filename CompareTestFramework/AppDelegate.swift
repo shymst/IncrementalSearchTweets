@@ -29,10 +29,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
-        if Twitter.sharedInstance().application(app, open: url, options: options) {
-            return true
-        }
-        return false
+        return Twitter.sharedInstance().application(app, open: url, options: options)
     }
 }
 

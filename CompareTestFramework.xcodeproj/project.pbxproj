@@ -86,10 +86,10 @@
 				9375CAE01F23A23500F5B85C /* Tweet.swift */,
 				9385E3B91F236BE4009768AD /* TimelineViewController.swift */,
 				93C02F3D1F23A98B00213803 /* TweetTableViewCell.swift */,
+				93C02F3F1F23C42500213803 /* Account.swift */,
 				9385E3BE1F236BE4009768AD /* Assets.xcassets */,
 				9385E3C01F236BE4009768AD /* LaunchScreen.storyboard */,
 				9385E3C31F236BE4009768AD /* Info.plist */,
-				93C02F3F1F23C42500213803 /* Account.swift */,
 			);
 			path = CompareTestFramework;
 			sourceTree = "<group>";

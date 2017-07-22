@@ -27,6 +27,15 @@ class TimelineViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
+
+        TwitterManager().loginToTwitter { isSuccess in
+            switch isSuccess {
+            case false:
+                print("login failed")
+            case true:
+                print("login success")
+            }
+        }
     }
 }
 
