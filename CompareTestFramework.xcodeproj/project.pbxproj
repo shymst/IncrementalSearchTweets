@@ -14,6 +14,7 @@
 		9385E3BF1F236BE4009768AD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9385E3BE1F236BE4009768AD /* Assets.xcassets */; };
 		9385E3C21F236BE4009768AD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9385E3C01F236BE4009768AD /* LaunchScreen.storyboard */; };
 		93C02F3E1F23A98B00213803 /* TweetTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93C02F3D1F23A98B00213803 /* TweetTableViewCell.swift */; };
+		93C02F401F23C42500213803 /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93C02F3F1F23C42500213803 /* Account.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		9385E3D71F236BE4009768AD /* CompareTestFrameworkUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompareTestFrameworkUITests.swift; sourceTree = "<group>"; };
 		9385E3D91F236BE4009768AD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		93C02F3D1F23A98B00213803 /* TweetTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TweetTableViewCell.swift; sourceTree = "<group>"; };
+		93C02F3F1F23C42500213803 /* Account.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +74,7 @@
 				9385E3BE1F236BE4009768AD /* Assets.xcassets */,
 				9385E3C01F236BE4009768AD /* LaunchScreen.storyboard */,
 				9385E3C31F236BE4009768AD /* Info.plist */,
+				93C02F3F1F23C42500213803 /* Account.swift */,
 			);
 			path = CompareTestFramework;
 			sourceTree = "<group>";
@@ -171,6 +174,7 @@
 				9375CADF1F23A15700F5B85C /* User.swift in Sources */,
 				93C02F3E1F23A98B00213803 /* TweetTableViewCell.swift in Sources */,
 				9375CAE11F23A23500F5B85C /* Tweet.swift in Sources */,
+				93C02F401F23C42500213803 /* Account.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
