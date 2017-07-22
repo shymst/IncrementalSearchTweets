@@ -1,0 +1,9 @@
+TemplateRootPath: ./
+DefaultTemplateDirectoryName: KuriTemplate
+ProjectRootPath: ./
+ProjectFileName: CompareTestFramework.xcodeproj
+GenerateRootPath: ./CompareTestFramework/
+Target: CompareTestFramework
+
+View:
+ CustomSuffix: ViewController
