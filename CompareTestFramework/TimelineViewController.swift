@@ -13,7 +13,7 @@ class TimelineViewController: UIViewController {
 
     var tableView: UITableView = {
         let tableView = UITableView()
-        tableView.estimatedRowHeight = 100
+        tableView.estimatedRowHeight = 300
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.register(TweetTableViewCell.self, forCellReuseIdentifier: NSStringFromClass(TweetTableViewCell.self))
         return tableView
