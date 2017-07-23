@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Himotoki
 
 class TimelineViewController: UIViewController {
 
@@ -18,27 +19,33 @@ class TimelineViewController: UIViewController {
         return tableView
     }()
 
-    let tweets: [Tweet] = [
-            Tweet(id: "", text: "ああああああああああああああああああああああ", user: User(id: "", accountId: "shunya_ma", screenName: "Shunyama", profileImageURL: "https://pbs.twimg.com/profile_images/787258973032370180/fAYbhA1t_400x400.jpg")),
-            Tweet(id: "", text: "ああああああああああああああああああああああ", user: User(id: "", accountId: "shunya_ma", screenName: "Shunyama", profileImageURL: "https://pbs.twimg.com/profile_images/787258973032370180/fAYbhA1t_400x400.jpg")),
-            Tweet(id: "", text: "ああああああああああああああああああああああ", user: User(id: "", accountId: "shunya_ma", screenName: "Shunyama", profileImageURL: "https://pbs.twimg.com/profile_images/787258973032370180/fAYbhA1t_400x400.jpg"))
-        ]
+    var refreshControl: UIRefreshControl = {
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(TimelineViewController.refresh), for: .valueChanged)
+        return refreshControl
+    }()
+
+    var tweets = [Tweet]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
 
-        TwitterManager().loginToTwitter { isSuccess in
-            switch isSuccess {
-            case false:
-                print("login failed")
-            case true:
-                print("login success")
+        if Keys.userID.isEmpty {
+            TwitterManager().loginToTwitter { isSuccess in
+                switch isSuccess {
+                case false:
+                    print("login failed")
+                case true:
+                    print("login success")
+                    self.fetch()
+                }
             }
+        } else {
+            self.fetch()
         }
     }
 }
-
 
 // MARK: Setups
 extension TimelineViewController {
@@ -48,6 +55,7 @@ extension TimelineViewController {
 
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.refreshControl = refreshControl
         view.addSubview(tableView)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor).isActive = true
@@ -57,6 +65,25 @@ extension TimelineViewController {
     }
 }
 
+// MARK: Private
+extension TimelineViewController {
+    fileprivate func fetch() {
+        TwitterManager().getTimeline { [weak self] (data, error) in
+            if let err = error {
+                print(err)
+            }
+            self?.tweets = TimelineTranslator().translate(data: data!)
+            self?.tableView.reloadData()
+        }
+    }
+
+    @objc fileprivate func refresh() {
+        fetch()
+        tableView.refreshControl?.endRefreshing()
+    }
+}
+
+// MARK: UITableViewDataSource
 extension TimelineViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return tweets.count
@@ -72,6 +99,7 @@ extension TimelineViewController: UITableViewDataSource {
     }
 }
 
+// MARK: UITableViewDelegate
 extension TimelineViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("taped cell")

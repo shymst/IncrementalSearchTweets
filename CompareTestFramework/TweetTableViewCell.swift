@@ -16,14 +16,14 @@ class TweetTableViewCell: UITableViewCell {
         return imageView
     }()
 
-    var screenNameLabel: UILabel = {
+    var nameLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 1
         label.font = UIFont.boldSystemFont(ofSize: 14)
         return label
     }()
 
-    var accountIdLabel: UILabel = {
+    var screenNameLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 1
         label.font = UIFont.systemFont(ofSize: 12)
@@ -69,22 +69,22 @@ extension TweetTableViewCell {
         iconImageView.layer.cornerRadius = iconImageView.frame.width / 2
         iconImageView.layer.masksToBounds = true
 
+        addSubview(nameLabel)
+        nameLabel.translatesAutoresizingMaskIntoConstraints = false
+        nameLabel.topAnchor.constraint(equalTo: iconImageView.topAnchor).isActive = true
+        nameLabel.leadingAnchor.constraint(equalTo: iconImageView.trailingAnchor, constant: 10).isActive = true
+
         addSubview(screenNameLabel)
         screenNameLabel.translatesAutoresizingMaskIntoConstraints = false
         screenNameLabel.topAnchor.constraint(equalTo: iconImageView.topAnchor).isActive = true
-        screenNameLabel.leadingAnchor.constraint(equalTo: iconImageView.trailingAnchor, constant: 10).isActive = true
-
-        addSubview(accountIdLabel)
-        accountIdLabel.translatesAutoresizingMaskIntoConstraints = false
-        accountIdLabel.topAnchor.constraint(equalTo: iconImageView.topAnchor).isActive = true
-        accountIdLabel.leadingAnchor.constraint(equalTo: screenNameLabel.trailingAnchor, constant: 5).isActive = true
-        accountIdLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10).isActive = true
+        screenNameLabel.leadingAnchor.constraint(equalTo: nameLabel.trailingAnchor, constant: 5).isActive = true
+        screenNameLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10).isActive = true
 
         addSubview(textContentLabel)
         textContentLabel.translatesAutoresizingMaskIntoConstraints = false
-        textContentLabel.topAnchor.constraint(equalTo: accountIdLabel.bottomAnchor, constant: 5).isActive = true
-        textContentLabel.leadingAnchor.constraint(equalTo: screenNameLabel.leadingAnchor).isActive = true
-        textContentLabel.trailingAnchor.constraint(equalTo: accountIdLabel.trailingAnchor).isActive = true
+        textContentLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 2).isActive = true
+        textContentLabel.leadingAnchor.constraint(equalTo: nameLabel.leadingAnchor).isActive = true
+        textContentLabel.trailingAnchor.constraint(equalTo: screenNameLabel.trailingAnchor).isActive = true
         textContentLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -10).isActive = true
     }
 
@@ -98,8 +98,8 @@ extension TweetTableViewCell {
             }
         }.resume()
 
-        screenNameLabel.text = tweet.user.screenName
-        accountIdLabel.text = "@" + tweet.user.accountId
+        nameLabel.text = tweet.user.name
+        screenNameLabel.text = "@" + tweet.user.screenName
         textContentLabel.text = tweet.text
     }
 }

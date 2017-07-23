@@ -7,3 +7,12 @@ target 'CompareTestFramework' do
 
   pod 'TwitterKit'
 end
+
+
+plugin 'cocoapods-keys', {
+  :project => "CompareTestFramework",
+  :keys => [
+      "TwitterConsumerKey",
+      "TwitterConsumerSecret"
+  ]
+}

@@ -1,15 +1,22 @@
 PODS:
+  - Keys (1.0.0)
   - TwitterCore (3.0.0)
   - TwitterKit (3.0.3):
     - TwitterCore (>= 3.0.0)
 
 DEPENDENCIES:
+  - Keys (from `Pods/CocoaPodsKeys`)
   - TwitterKit
 
+EXTERNAL SOURCES:
+  Keys:
+    :path: Pods/CocoaPodsKeys
+
 SPEC CHECKSUMS:
+  Keys: 9c35bf00f612ee1d48556f4a4b9b4551e224e90f
   TwitterCore: 8ce250be1eb34633a0e6acc89520d4165ec52c10
   TwitterKit: 202404be71aadd81d19f677b34579fe77d9cb67e
 
-PODFILE CHECKSUM: c564db96e0656496c672642c16210cdc4bf9a10d
+PODFILE CHECKSUM: 04a70d870e83531365f4e74bc2225b5ab0c5d49c
 
 COCOAPODS: 1.2.1

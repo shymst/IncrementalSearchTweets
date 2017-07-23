@@ -16,7 +16,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
 
-        Twitter.sharedInstance().start(withConsumerKey: "ZwV1SZIfbqs1AELrNXiN3T4z6", consumerSecret: "xZoA9CGgaxp4cNAJz9NYJgEJ6enXchIUGlglOGTVBR7Ie8ocrf")
+        Twitter.sharedInstance().start(withConsumerKey: Keys.twitterConsumerKey, consumerSecret: Keys.twitterConsumerSecret)
 
         let rootViewController = TimelineViewController()
         
