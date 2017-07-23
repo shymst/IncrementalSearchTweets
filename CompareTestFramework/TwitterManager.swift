@@ -8,6 +8,7 @@
 
 import TwitterKit
 import SwiftyUserDefaults
+import RxSwift
 
 struct TwitterManager {
     func loginToTwitter(handler: @escaping (Bool) -> Void) {

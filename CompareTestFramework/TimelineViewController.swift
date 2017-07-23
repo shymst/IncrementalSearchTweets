@@ -7,7 +7,8 @@
 //
 
 import UIKit
-import Himotoki
+import RxSwift
+import RxCocoa
 
 class TimelineViewController: UIViewController {
 
@@ -26,11 +27,12 @@ class TimelineViewController: UIViewController {
 
     var refreshControl: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
-        refreshControl.addTarget(self, action: #selector(TimelineViewController.refresh), for: .valueChanged)
+//        refreshControl.addTarget(self, action: #selector(TimelineViewController.refresh), for: .valueChanged)
         return refreshControl
     }()
 
-    var tweets = [Tweet]()
+    fileprivate let viewModel = TimelineViewModel()
+    fileprivate let disposeBag = DisposeBag()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,14 +45,12 @@ class TimelineViewController: UIViewController {
                     print("login failed")
                 case true:
                     print("login success")
-                    self.fetch()
+                    self.setupBind()
                 }
             }
         } else {
-            fetch()
+            setupBind()
         }
-
-
     }
 }
 
@@ -78,25 +78,44 @@ extension TimelineViewController {
         tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
     }
+
+    fileprivate func setupBind() {
+        viewModel.tweets.asObservable()
+            .filter { tweets in
+                return !tweets.isEmpty
+            }
+            .subscribe(
+                onNext: { [unowned self] tweets in
+                    self.tableView.reloadData()
+                })
+                .addDisposableTo(disposeBag)
+
+        searchBar.rx.text
+            .subscribe(
+                onNext: { [unowned self] query in
+                    self.viewModel.reloadData(query: query!)
+                })
+                .addDisposableTo(disposeBag)
+    }
 }
 
 // MARK: Private
-extension TimelineViewController {
-    fileprivate func fetch() {
-        TwitterManager().getTimeline(query: "天気") { [weak self] (data, error) in
-            if let err = error {
-                print(err)
-            }
-            self?.tweets = TimelineTranslator().translate(data: data!)
-            self?.tableView.reloadData()
-            self?.tableView.refreshControl?.endRefreshing()
-        }
-    }
-
-    @objc fileprivate func refresh() {
-        fetch()
-    }
-}
+//extension TimelineViewController {
+//    fileprivate func fetch() {
+//        TwitterManager().getTimeline(query: "天気") { [weak self] (data, error) in
+//            if let err = error {
+//                print(err)
+//            }
+//            self?.tweets = TimelineTranslator().translate(data: data!)
+//            self?.tableView.reloadData()
+//            self?.tableView.refreshControl?.endRefreshing()
+//        }
+//    }
+//
+//    @objc fileprivate func refresh() {
+//        fetch()
+//    }
+//}
 
 // MARK: UISearchBar
 extension TimelineViewController: UISearchBarDelegate {
@@ -112,14 +131,14 @@ extension TimelineViewController: UISearchBarDelegate {
 // MARK: UITableViewDataSource
 extension TimelineViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return tweets.count
+        return viewModel.tweets.value.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: NSStringFromClass(TweetTableViewCell.self), for: indexPath) as? TweetTableViewCell else {
             fatalError("TweetTableViewCell is not found.")
         }
-        cell.setup(tweets[indexPath.row])
+        cell.setup(viewModel.tweets.value[indexPath.row])
         cell.layoutIfNeeded()
         return cell
     }

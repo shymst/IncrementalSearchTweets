@@ -25,6 +25,8 @@
 		93C02F401F23C42500213803 /* TwitterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93C02F3F1F23C42500213803 /* TwitterManager.swift */; };
 		93F67D431F249D2300865536 /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F67D421F249D2300865536 /* APIError.swift */; };
 		93F67D451F249DDE00865536 /* SwiftyUserDefaults.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93F67D441F249DDE00865536 /* SwiftyUserDefaults.framework */; };
+		93F67D471F24E93D00865536 /* TwitterKit-Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F67D461F24E93D00865536 /* TwitterKit-Rx.swift */; };
+		93F67D491F24F0AE00865536 /* TimelineViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F67D481F24F0AE00865536 /* TimelineViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -52,6 +54,8 @@
 		93C02F3F1F23C42500213803 /* TwitterManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwitterManager.swift; sourceTree = "<group>"; };
 		93F67D421F249D2300865536 /* APIError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIError.swift; sourceTree = "<group>"; };
 		93F67D441F249DDE00865536 /* SwiftyUserDefaults.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyUserDefaults.framework; path = Carthage/Build/iOS/SwiftyUserDefaults.framework; sourceTree = "<group>"; };
+		93F67D461F24E93D00865536 /* TwitterKit-Rx.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TwitterKit-Rx.swift"; sourceTree = "<group>"; };
+		93F67D481F24F0AE00865536 /* TimelineViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimelineViewModel.swift; sourceTree = "<group>"; };
 		DB957194FB46D215EC52CF73 /* Pods-CompareTestFramework.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CompareTestFramework.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CompareTestFramework/Pods-CompareTestFramework.debug.xcconfig"; sourceTree = "<group>"; };
 		F2611B61AF62A14B75D1AB64 /* Pods_CompareTestFramework.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CompareTestFramework.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -111,15 +115,11 @@
 		9385E3B61F236BE4009768AD /* CompareTestFramework */ = {
 			isa = PBXGroup;
 			children = (
-				9385E3B71F236BE4009768AD /* AppDelegate.swift */,
-				93F67D421F249D2300865536 /* APIError.swift */,
-				93B078681F2490BA0010622F /* Keys.swift */,
+				93F67D4A1F24F0C200865536 /* Application */,
+				93F67D4C1F24F11900865536 /* Utility */,
+				93F67D4B1F24F0FE00865536 /* Timeline */,
 				9375CADE1F23A15700F5B85C /* User.swift */,
 				9375CAE01F23A23500F5B85C /* Tweet.swift */,
-				93B078661F24634C0010622F /* TimelineTranslator.swift */,
-				9385E3B91F236BE4009768AD /* TimelineViewController.swift */,
-				93C02F3D1F23A98B00213803 /* TweetTableViewCell.swift */,
-				93C02F3F1F23C42500213803 /* TwitterManager.swift */,
 				9385E3BE1F236BE4009768AD /* Assets.xcassets */,
 				9385E3C01F236BE4009768AD /* LaunchScreen.storyboard */,
 				9385E3C31F236BE4009768AD /* Info.plist */,
@@ -143,6 +143,36 @@
 				9385E3D91F236BE4009768AD /* Info.plist */,
 			);
 			path = CompareTestFrameworkUITests;
+			sourceTree = "<group>";
+		};
+		93F67D4A1F24F0C200865536 /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				9385E3B71F236BE4009768AD /* AppDelegate.swift */,
+				93B078681F2490BA0010622F /* Keys.swift */,
+			);
+			name = Application;
+			sourceTree = "<group>";
+		};
+		93F67D4B1F24F0FE00865536 /* Timeline */ = {
+			isa = PBXGroup;
+			children = (
+				93B078661F24634C0010622F /* TimelineTranslator.swift */,
+				93C02F3D1F23A98B00213803 /* TweetTableViewCell.swift */,
+				9385E3B91F236BE4009768AD /* TimelineViewController.swift */,
+				93F67D481F24F0AE00865536 /* TimelineViewModel.swift */,
+			);
+			name = Timeline;
+			sourceTree = "<group>";
+		};
+		93F67D4C1F24F11900865536 /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+				93C02F3F1F23C42500213803 /* TwitterManager.swift */,
+				93F67D421F249D2300865536 /* APIError.swift */,
+				93F67D461F24E93D00865536 /* TwitterKit-Rx.swift */,
+			);
+			name = Utility;
 			sourceTree = "<group>";
 		};
 		F8F80284D9066E2F81BA518A /* Pods */ = {
@@ -300,9 +330,11 @@
 			files = (
 				93B078671F24634C0010622F /* TimelineTranslator.swift in Sources */,
 				9385E3BA1F236BE4009768AD /* TimelineViewController.swift in Sources */,
+				93F67D471F24E93D00865536 /* TwitterKit-Rx.swift in Sources */,
 				9385E3B81F236BE4009768AD /* AppDelegate.swift in Sources */,
 				9375CADF1F23A15700F5B85C /* User.swift in Sources */,
 				93C02F3E1F23A98B00213803 /* TweetTableViewCell.swift in Sources */,
+				93F67D491F24F0AE00865536 /* TimelineViewModel.swift in Sources */,
 				93B078691F2490BA0010622F /* Keys.swift in Sources */,
 				9375CAE11F23A23500F5B85C /* Tweet.swift in Sources */,
 				93F67D431F249D2300865536 /* APIError.swift in Sources */,
