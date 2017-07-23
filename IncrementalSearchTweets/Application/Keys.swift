@@ -10,8 +10,8 @@ import Keys
 import SwiftyUserDefaults
 
 struct Keys {
-    static let twitterConsumerKey: String = CompareTestFrameworkKeys().twitterConsumerKey
-    static let twitterConsumerSecret: String = CompareTestFrameworkKeys().twitterConsumerSecret
+    static let twitterConsumerKey: String = IncrementalSearchTweetsKeys().twitterConsumerKey
+    static let twitterConsumerSecret: String = IncrementalSearchTweetsKeys().twitterConsumerSecret
     static let userID: String = Defaults[.userID] ?? ""
 
     static func removeAll() {
