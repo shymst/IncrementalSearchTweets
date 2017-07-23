@@ -10,8 +10,12 @@ import Foundation
 
 struct TimelineTranslator {
     func translate(data: Data) -> [Tweet] {
-        let serializedData = try! JSONSerialization.jsonObject(with: data, options: .allowFragments)
-        let json = serializedData as! [Any]
+        guard
+            let serializedData = try! JSONSerialization.jsonObject(with: data, options: .allowFragments) as? NSDictionary,
+            let json = serializedData["statuses"] as? [Any]
+            else {
+                fatalError("serialized failed")
+        }
 
         let tweets: [Tweet] = json.flatMap {
             Tweet(json: $0)

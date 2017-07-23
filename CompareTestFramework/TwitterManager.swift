@@ -30,8 +30,8 @@ struct TwitterManager {
         }
 
         let client = TWTRAPIClient(userID: userID)
-        let statusesShowEndpoint = "https://api.twitter.com/1.1/statuses/home_timeline.json"
-        let params = ["id": userID]
+        let statusesShowEndpoint = "https://api.twitter.com/1.1/search/tweets.json"
+        let params = ["q": "天気", "lang": "ja"]
         var clientError : NSError?
 
         let request = client.urlRequest(withMethod: "GET", url: statusesShowEndpoint, parameters: params, error: &clientError)
