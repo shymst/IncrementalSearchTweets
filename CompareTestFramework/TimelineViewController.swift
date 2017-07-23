@@ -11,6 +11,11 @@ import Himotoki
 
 class TimelineViewController: UIViewController {
 
+    var searchBar: UISearchBar = {
+        let searchBar = UISearchBar()
+        return searchBar
+    }()
+
     var tableView: UITableView = {
         let tableView = UITableView()
         tableView.estimatedRowHeight = 300
@@ -53,12 +58,20 @@ extension TimelineViewController {
         title = "Timeline"
         automaticallyAdjustsScrollViewInsets = false
 
+        searchBar.delegate = self
+        searchBar.showsCancelButton = true
+        view.addSubview(searchBar)
+        searchBar.translatesAutoresizingMaskIntoConstraints = false
+        searchBar.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor).isActive = true
+        searchBar.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        searchBar.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+
         tableView.delegate = self
         tableView.dataSource = self
         tableView.refreshControl = refreshControl
         view.addSubview(tableView)
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor).isActive = true
+        tableView.topAnchor.constraint(equalTo: searchBar.bottomAnchor).isActive = true
         tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
@@ -68,7 +81,7 @@ extension TimelineViewController {
 // MARK: Private
 extension TimelineViewController {
     fileprivate func fetch() {
-        TwitterManager().getTimeline { [weak self] (data, error) in
+        TwitterManager().getTimeline(query: "天気") { [weak self] (data, error) in
             if let err = error {
                 print(err)
             }
@@ -80,6 +93,17 @@ extension TimelineViewController {
 
     @objc fileprivate func refresh() {
         fetch()
+    }
+}
+
+// MARK: UISearchBar
+extension TimelineViewController: UISearchBarDelegate {
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
+    }
+
+    func searchBarResultsListButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
     }
 }
 

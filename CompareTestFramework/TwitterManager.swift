@@ -23,7 +23,7 @@ struct TwitterManager {
         })
     }
 
-    func getTimeline(handler: @escaping (Data?, APIError?) -> Void) {
+    func getTimeline(query: String, handler: @escaping (Data?, APIError?) -> Void) {
         guard let userID = Defaults[.userID] else {
             handler(nil, APIError.unknown(reason: "userID is not found."))
             return
@@ -31,7 +31,7 @@ struct TwitterManager {
 
         let client = TWTRAPIClient(userID: userID)
         let statusesShowEndpoint = "https://api.twitter.com/1.1/search/tweets.json"
-        let params = ["q": "中京記念", "lang": "ja", "tweet_mode": "extended"]
+        let params = ["q": query, "lang": "ja", "tweet_mode": "extended"]
         var clientError : NSError?
 
         let request = client.urlRequest(withMethod: "GET", url: statusesShowEndpoint, parameters: params, error: &clientError)

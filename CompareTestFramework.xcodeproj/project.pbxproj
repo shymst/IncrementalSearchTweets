@@ -112,6 +112,8 @@
 			isa = PBXGroup;
 			children = (
 				9385E3B71F236BE4009768AD /* AppDelegate.swift */,
+				93F67D421F249D2300865536 /* APIError.swift */,
+				93B078681F2490BA0010622F /* Keys.swift */,
 				9375CADE1F23A15700F5B85C /* User.swift */,
 				9375CAE01F23A23500F5B85C /* Tweet.swift */,
 				93B078661F24634C0010622F /* TimelineTranslator.swift */,
@@ -121,8 +123,6 @@
 				9385E3BE1F236BE4009768AD /* Assets.xcassets */,
 				9385E3C01F236BE4009768AD /* LaunchScreen.storyboard */,
 				9385E3C31F236BE4009768AD /* Info.plist */,
-				93B078681F2490BA0010622F /* Keys.swift */,
-				93F67D421F249D2300865536 /* APIError.swift */,
 			);
 			path = CompareTestFramework;
 			sourceTree = "<group>";
