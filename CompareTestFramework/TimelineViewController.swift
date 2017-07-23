@@ -74,12 +74,12 @@ extension TimelineViewController {
             }
             self?.tweets = TimelineTranslator().translate(data: data!)
             self?.tableView.reloadData()
+            self?.tableView.refreshControl?.endRefreshing()
         }
     }
 
     @objc fileprivate func refresh() {
         fetch()
-        tableView.refreshControl?.endRefreshing()
     }
 }
 

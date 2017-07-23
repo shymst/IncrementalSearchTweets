@@ -64,7 +64,7 @@ extension TweetTableViewCell {
         iconImageView.translatesAutoresizingMaskIntoConstraints = false
         iconImageView.topAnchor.constraint(equalTo: topAnchor, constant: 10).isActive = true
         iconImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10).isActive = true
-        iconImageView.widthAnchor.constraint(equalToConstant: 50).isActive = true
+        iconImageView.widthAnchor.constraint(equalToConstant: 40).isActive = true
         iconImageView.heightAnchor.constraint(equalTo: iconImageView.widthAnchor).isActive = true
         iconImageView.layer.cornerRadius = iconImageView.frame.width / 2
         iconImageView.layer.masksToBounds = true
