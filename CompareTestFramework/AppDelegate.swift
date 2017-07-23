@@ -16,10 +16,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
 
+//        Keys.removeAll()
+
         Twitter.sharedInstance().start(withConsumerKey: Keys.twitterConsumerKey, consumerSecret: Keys.twitterConsumerSecret)
 
         let rootViewController = TimelineViewController()
-        
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.rootViewController = UINavigationController(rootViewController: rootViewController)
         window?.backgroundColor = UIColor.white

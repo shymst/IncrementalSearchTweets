@@ -47,8 +47,10 @@ class TimelineViewController: UIViewController {
                 }
             }
         } else {
-            self.fetch()
+            fetch()
         }
+
+
     }
 }
 

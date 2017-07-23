@@ -13,6 +13,10 @@ struct Keys {
     static let twitterConsumerKey: String = CompareTestFrameworkKeys().twitterConsumerKey
     static let twitterConsumerSecret: String = CompareTestFrameworkKeys().twitterConsumerSecret
     static let userID: String = Defaults[.userID] ?? ""
+
+    static func removeAll() {
+        Defaults.removeAll()
+    }
 }
 
 extension DefaultsKeys {
