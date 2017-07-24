@@ -50,7 +50,7 @@ struct TimelineViewModel {
         case .additional(let data):
             self.viewState.value = .working
             self.scrollEndComing.value = false
-            let tweets = TimelineTranslator().translate(data: data)
+            var tweets = TimelineTranslator().translate(data: data)
             tweets.removeFirst()
             self.tweets.value += tweets
         }

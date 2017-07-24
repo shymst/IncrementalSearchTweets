@@ -109,7 +109,7 @@ class TimelineViewController: UIViewController {
 
         viewModel.tweets.asDriver()
             .drive(tableView.rx.items(cellIdentifier: NSStringFromClass(TweetTableViewCell.self), cellType: TweetTableViewCell.self)) { (row, element, cell) in
-                cell.setup(element)
+                cell.setup(element, query: self.searchBar.text!)
                 cell.layoutIfNeeded()
             }
             .addDisposableTo(disposeBag)

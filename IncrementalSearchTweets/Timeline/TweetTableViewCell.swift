@@ -88,7 +88,7 @@ extension TweetTableViewCell {
         textContentLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -10).isActive = true
     }
 
-    func setup(_ tweet: Tweet) {
+    func setup(_ tweet: Tweet, query: String) {
         _ = URLSession.shared.dataTask(with: URL(string: tweet.user.profileImageURL)!) { [weak self] data, response, error in
             if let error = error {
                 print(error)
@@ -100,6 +100,17 @@ extension TweetTableViewCell {
 
         nameLabel.text = tweet.user.name
         screenNameLabel.text = "@" + tweet.user.screenName
-        textContentLabel.text = tweet.text
+        textContentLabel.attributedText = highlightQueryString(content: tweet.text, query: query, color: .yellow)
+    }
+
+    private func highlightQueryString(content: String, query: String, color: UIColor) -> NSMutableAttributedString {
+        let replacedString: NSMutableAttributedString = NSMutableAttributedString(string: content)
+        let attrs: [String : Any] = [
+            NSFontAttributeName: UIFont.boldSystemFont(ofSize: textContentLabel.font.pointSize),
+            NSBackgroundColorAttributeName: color
+        ]
+        let range = NSString(string: content).range(of: query)
+        replacedString.addAttributes(attrs, range: range)
+        return replacedString
     }
 }
