@@ -14,8 +14,7 @@ class TimelineViewModel {
     private(set) var tweets = Variable<[Tweet]>([])
 
     func reloadData(query: String) {
-        let userID = Keys.userID
-        let client = TWTRAPIClient(userID: userID)
+        let client = TWTRAPIClient()
         let endpoint = "https://api.twitter.com/1.1/search/tweets.json"
         let params = ["q": query, "lang": "ja", "tweet_mode": "extended"]
 

@@ -37,20 +37,7 @@ class TimelineViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
-
-        if Keys.userID.isEmpty {
-            TwitterManager().loginToTwitter { isSuccess in
-                switch isSuccess {
-                case false:
-                    print("login failed")
-                case true:
-                    print("login success")
-                    self.setupBind()
-                }
-            }
-        } else {
-            setupBind()
-        }
+        setupBind()
     }
 }
 
@@ -98,24 +85,6 @@ extension TimelineViewController {
                 .addDisposableTo(disposeBag)
     }
 }
-
-// MARK: Private
-//extension TimelineViewController {
-//    fileprivate func fetch() {
-//        TwitterManager().getTimeline(query: "天気") { [weak self] (data, error) in
-//            if let err = error {
-//                print(err)
-//            }
-//            self?.tweets = TimelineTranslator().translate(data: data!)
-//            self?.tableView.reloadData()
-//            self?.tableView.refreshControl?.endRefreshing()
-//        }
-//    }
-//
-//    @objc fileprivate func refresh() {
-//        fetch()
-//    }
-//}
 
 // MARK: UISearchBar
 extension TimelineViewController: UISearchBarDelegate {
