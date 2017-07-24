@@ -20,12 +20,11 @@ class TimelineViewModel {
 
         let request = client.rx_urlRequest(withMethod: "GET", url: endpoint, parameters: params, client: client)
 
-        request.subscribe(
-            onNext: { data in
+        request
+            .subscribe(onNext: { data in
                 let tweets = TimelineTranslator().translate(data: data)
                 self.tweets.value = tweets
-            },
-            onError: { (error) in
+            }, onError: { (error) in
                 print(error)
             })
             .addDisposableTo(disposeBag)

@@ -74,7 +74,9 @@ extension TimelineViewController {
 
         searchBar.rx.text
             .subscribe(onNext: { [unowned self] query in
-                self.viewModel.reloadData(query: query!)
+                if let query = query, !query.isEmpty {
+                    self.viewModel.reloadData(query: query)
+                }
             })
             .addDisposableTo(disposeBag)
 
