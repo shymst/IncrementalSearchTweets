@@ -63,7 +63,7 @@ class TimelineViewController: UIViewController {
         searchBar.rx.text
             .subscribe(onNext: { [unowned self] query in
                 if let query = query, !query.isEmpty {
-                    self.viewModel.reloadData(query: query)
+                    self.viewModel.reloadData(query: query, max_id: "")
                 }
             })
             .addDisposableTo(disposeBag)
@@ -82,12 +82,26 @@ class TimelineViewController: UIViewController {
 
         refreshControl.rx.controlEvent(.valueChanged)
             .subscribe(onNext: { [unowned self] query in
-                self.viewModel.reloadData(query: self.searchBar.text!)
+                self.viewModel.reloadData(query: self.searchBar.text!, max_id: "")
             })
             .addDisposableTo(disposeBag)
 
-        viewModel.tweets.asObservable()
-            .subscribe(onNext: { [unowned self] tweets in
+        tableView.rx.contentOffset.asObservable()
+            .filter {_ in 
+                return !self.viewModel.tweets.value.isEmpty  /// ViewModelで判定するべき?
+            }
+            .map { [unowned self] in
+                $0.y + 300 >= self.tableView.contentSize.height - self.tableView.bounds.size.height
+            }
+            .subscribe(onNext: { [unowned self] isScrollEndComing in
+                if isScrollEndComing, self.viewModel.viewState.value.fetchEnabled() { /// ViewModelで判定するべき?
+                    self.viewModel.reloadData(query: self.searchBar.text!, max_id: (self.viewModel.tweets.value.last?.id)!)
+                }
+            })
+            .addDisposableTo(disposeBag)
+
+        viewModel.tweets.asDriver()
+            .drive(onNext: { [unowned self] tweets in
                 self.tableView.reloadData()
                 self.refreshControl.endRefreshing()
             })
