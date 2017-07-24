@@ -14,6 +14,7 @@ class TimelineViewController: UIViewController {
 
     var searchBar: UISearchBar = {
         let searchBar = UISearchBar()
+        searchBar.showsCancelButton = true
         return searchBar
     }()
 
@@ -27,7 +28,6 @@ class TimelineViewController: UIViewController {
 
     var refreshControl: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
-//        refreshControl.addTarget(self, action: #selector(TimelineViewController.refresh), for: .valueChanged)
         return refreshControl
     }()
 
@@ -47,8 +47,6 @@ extension TimelineViewController {
         title = "Timeline"
         automaticallyAdjustsScrollViewInsets = false
 
-        searchBar.delegate = self
-        searchBar.showsCancelButton = true
         view.addSubview(searchBar)
         searchBar.translatesAutoresizingMaskIntoConstraints = false
         searchBar.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor).isActive = true
@@ -68,32 +66,35 @@ extension TimelineViewController {
 
     fileprivate func setupBind() {
         viewModel.tweets.asObservable()
-            .filter { tweets in
-                return !tweets.isEmpty
-            }
-            .subscribe(
-                onNext: { [unowned self] tweets in
-                    self.tableView.reloadData()
-                })
-                .addDisposableTo(disposeBag)
+            .subscribe(onNext: { [unowned self] tweets in
+                self.tableView.reloadData()
+                self.refreshControl.endRefreshing()
+            })
+            .addDisposableTo(disposeBag)
 
         searchBar.rx.text
-            .subscribe(
-                onNext: { [unowned self] query in
-                    self.viewModel.reloadData(query: query!)
-                })
-                .addDisposableTo(disposeBag)
-    }
-}
+            .subscribe(onNext: { [unowned self] query in
+                self.viewModel.reloadData(query: query!)
+            })
+            .addDisposableTo(disposeBag)
 
-// MARK: UISearchBar
-extension TimelineViewController: UISearchBarDelegate {
-    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        searchBar.resignFirstResponder()
-    }
+        refreshControl.rx.controlEvent(.valueChanged)
+            .subscribe(onNext: { [unowned self] query in
+                self.viewModel.reloadData(query: self.searchBar.text!)
+            })
+            .addDisposableTo(disposeBag)
 
-    func searchBarResultsListButtonClicked(_ searchBar: UISearchBar) {
-        searchBar.resignFirstResponder()
+        searchBar.rx.cancelButtonClicked
+            .subscribe(onNext: { [unowned self] in
+                self.searchBar.resignFirstResponder()
+            })
+            .addDisposableTo(disposeBag)
+
+        searchBar.rx.searchButtonClicked
+            .subscribe(onNext: { [unowned self] in
+                self.searchBar.resignFirstResponder()
+            })
+            .addDisposableTo(disposeBag)
     }
 }
 
