@@ -89,6 +89,7 @@ extension TweetTableViewCell {
     }
 
     func setup(_ tweet: Tweet, query: String) {
+        iconImageView.image = nil
         _ = URLSession.shared.dataTask(with: URL(string: tweet.user.profileImageURL)!) { [weak self] data, response, error in
             if let error = error {
                 print(error)
