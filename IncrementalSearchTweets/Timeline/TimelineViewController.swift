@@ -31,7 +31,7 @@ class TimelineViewController: UIViewController {
         return refreshControl
     }()
 
-    private let viewModel = TimelineViewModel()
+    var viewModel: TimelineViewModel!
     private let disposeBag = DisposeBag()
 
     override func viewDidLoad() {
@@ -62,9 +62,7 @@ class TimelineViewController: UIViewController {
     private func setupBind() {
         searchBar.rx.text
             .subscribe(onNext: { [unowned self] query in
-                if let query = query, !query.isEmpty {
-                    self.viewModel.reloadData(query: query, max_id: "")
-                }
+                self.viewModel.reloadData(query: query!, max_id: nil)
             })
             .addDisposableTo(disposeBag)
 
@@ -82,19 +80,20 @@ class TimelineViewController: UIViewController {
 
         refreshControl.rx.controlEvent(.valueChanged)
             .subscribe(onNext: { [unowned self] query in
-                self.viewModel.reloadData(query: self.searchBar.text!, max_id: "")
+                self.viewModel.reloadData(query: self.searchBar.text!, max_id: nil)
+                self.refreshControl.endRefreshing()
             })
             .addDisposableTo(disposeBag)
 
         tableView.rx.contentOffset.asObservable()
-            .filter {_ in 
-                return !self.viewModel.tweets.value.isEmpty  /// ViewModelで判定するべき?
+            .filter {_ in
+                return !self.viewModel.tweets.value.isEmpty
             }
             .map { [unowned self] in
-                $0.y + 300 >= self.tableView.contentSize.height - self.tableView.bounds.size.height
+                $0.y >= self.tableView.contentSize.height - self.tableView.bounds.size.height
             }
             .subscribe(onNext: { [unowned self] isScrollEndComing in
-                if isScrollEndComing, self.viewModel.viewState.value.fetchEnabled() { /// ViewModelで判定するべき?
+                if isScrollEndComing {
                     self.viewModel.reloadData(query: self.searchBar.text!, max_id: (self.viewModel.tweets.value.last?.id)!)
                 }
             })

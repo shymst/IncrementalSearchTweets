@@ -19,6 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Twitter.sharedInstance().start(withConsumerKey: Keys.twitterConsumerKey, consumerSecret: Keys.twitterConsumerSecret)
 
         let rootViewController = TimelineViewController()
+        rootViewController.viewModel = TimelineViewModelImpl(reqeust: SearchRequestImpl())
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.rootViewController = UINavigationController(rootViewController: rootViewController)
         window?.backgroundColor = UIColor.white
