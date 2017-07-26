@@ -1,15 +1,14 @@
 //
-//  CompareTestFrameworkTests.swift
-//  CompareTestFrameworkTests
+//  IncrementalSearchTweetsTests.swift
+//  IncrementalSearchTweetsTests
 //
-//  Created by Shunya Yamashita on 2017/07/22.
+//  Created by Shunya Yamashita on 2017/07/26.
 //  Copyright © 2017年 shymst. All rights reserved.
 //
 
 import XCTest
-@testable import CompareTestFramework
 
-class CompareTestFrameworkTests: XCTestCase {
+class IncrementalSearchTweetsTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
